@@ -9,7 +9,7 @@
     {id: 2, string: 'Estudar', finished: false}
   ])
   const filteredTodos = computed(() =>{
-    const filtered = []
+    const filtered = todos.value.filter((todo) => todo.finished)
     return filtered
   })
 </script>
@@ -20,8 +20,6 @@
     <input type="button" value="Inserir">
   </form>
   <ul>
-    <li>{{todos[1].string}}</li>
-    <li>B</li>
-    <li>C</li>
+    <li v-for="todo in filteredTodos">{{todo.string}}</li>
   </ul>
 </template>
