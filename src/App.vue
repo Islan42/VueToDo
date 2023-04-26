@@ -1,8 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue'
-  
-  //const state = reactive({ todos:  })
-  //const todos = ref(['Mimir', 'Jogar LoL', 'Estudar'])
+
   const todos = ref([
     {id: 0, string: 'Mimir', finished: false},
     {id: 1, string: 'Jogar LoL', finished: false},
@@ -12,14 +10,22 @@
     const filtered = todos.value.filter((todo) => todo.finished)
     return filtered
   })
+  
+  const newTodo = ref('')
+  function insertNewTodo() {
+    const id = todos.value.length
+    todos.value.push({id, string: newTodo.value, finished: false})
+    newTodo.value = ''
+  }
 </script>
 
 <template>
-  <form>
-    <input>
-    <input type="button" value="Inserir">
+  <form @submit.prevent="insertNewTodo">
+    <input v-model="newTodo" placeholder="A fazer">
+    <input type="submit" value="Inserir">
   </form>
   <ul>
-    <li v-for="todo in filteredTodos">{{todo.string}}</li>
+    <li v-for="todo in todos" :key="todo.id">{{todo.string}}</li>
   </ul>
+  <p>{{ newTodo }}</p>
 </template>
