@@ -1,6 +1,7 @@
 <script setup>
   import { ref, computed } from 'vue'
 
+  const input = ref(null)
   const todos = ref([
     {id: 0, string: 'Mimir', finished: false},
     {id: 1, string: 'Jogar LoL', finished: false},
@@ -16,12 +17,13 @@
     const id = todos.value.length
     todos.value.push({id, string: newTodo.value, finished: false})
     newTodo.value = ''
+    input.value.focus()
   }
 </script>
 
 <template>
   <form @submit.prevent="insertNewTodo">
-    <input v-model="newTodo" placeholder="A fazer">
+    <input v-model="newTodo" placeholder="A fazer" ref="input">
     <input type="submit" value="Inserir">
   </form>
   <ul>
