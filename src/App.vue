@@ -1,5 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue'
+  import Todo from './components/Todo.vue'
 
   const input = ref(null)
   const todos = ref([
@@ -27,7 +28,8 @@
     <input type="submit" value="Inserir">
   </form>
   <ul>
-    <li v-for="todo in todos" :key="todo.id">{{todo.string}}</li>
+    <li v-for="todo in todos" :key="todo.id">
+      <Todo :todo="todo"/>
+    </li>
   </ul>
-  <p>{{ newTodo }}</p>
 </template>
