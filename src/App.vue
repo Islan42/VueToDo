@@ -1,6 +1,7 @@
 <script setup>
   import { ref, computed } from 'vue'
   import Todo from './components/Todo.vue'
+  import Filter from './components/Filter.vue'
 
   const input = ref(null)
   const todos = ref([
@@ -12,6 +13,7 @@
     const filtered = todos.value.filter((todo) => todo.finished)
     return filtered
   })
+  const filter = ref('All')
   
   const newTodo = ref('')
   function insertNewTodo() {
@@ -27,9 +29,11 @@
     <input v-model="newTodo" placeholder="A fazer" ref="input">
     <input type="submit" value="Inserir">
   </form>
+  <Filter :filter="filter"/>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
       <Todo :todo="todo"/>
     </li>
   </ul>
+  <p>{{ filter }}</p>
 </template>
