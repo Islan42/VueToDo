@@ -12,7 +12,7 @@
 <template>
   <span>
     {{ todo.string }}: {{ todo.finished }}
-    <input type="checkbox" id="finished" @change="changeFinished" :checked="todo.finished">
-    <label for="finished" >Dale</label>
+    <input type="checkbox" :id="`finished:${todo.id}`" @change="changeFinished" :checked="todo.finished">
+    <label :for="`finished:${todo.id}`" >Dale</label>
   </span>
 </template>
