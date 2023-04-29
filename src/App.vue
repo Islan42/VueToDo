@@ -2,6 +2,7 @@
   import { ref, computed } from 'vue'
   import Todo from './components/Todo.vue'
   import Filter from './components/Filter.vue'
+  import NewTodo from './components/NewTodo.vue'
 
   const input = ref(null)
   const todos = ref([
@@ -9,6 +10,8 @@
     {id: 1, string: 'Jogar LoL', finished: false},
     {id: 2, string: 'Estudar', finished: false}
   ])
+  const filter = ref('All')
+  
   const filteredTodos = computed(() =>{
     let filtered
     switch(true) {
@@ -28,14 +31,10 @@
     }
     return filtered
   })
-  const filter = ref('All')
-  const newTodo = ref('')
   
-  function insertNewTodo() {
+  function insertNewTodo(newTodo) {
     const id = todos.value.length
-    todos.value.push({id, string: newTodo.value, finished: false})
-    newTodo.value = ''
-    input.value.focus()
+    todos.value.push({id, string: newTodo, finished: false})
   }
   function changeFilter(newFilter) {
     filter.value = newFilter
@@ -43,10 +42,7 @@
 </script>
 
 <template>
-  <form @submit.prevent="insertNewTodo">
-    <input v-model="newTodo" placeholder="A fazer" ref="input">
-    <input type="submit" value="Inserir">
-  </form>
+  <NewTodo @insert-new-todo="insertNewTodo"/>
   <Filter @change-filter="changeFilter"/>
   <Todo :todos="filteredTodos"/>
   <p>{{ filter }}</p>
