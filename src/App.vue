@@ -48,10 +48,6 @@
     <input type="submit" value="Inserir">
   </form>
   <Filter @change-filter="changeFilter"/>
-  <ul>
-    <li v-for="todo in filteredTodos" :key="todo.id">
-      <Todo :todo="todo"/>
-    </li>
-  </ul>
+  <Todo :todos="filteredTodos"/>
   <p>{{ filter }}</p>
 </template>
