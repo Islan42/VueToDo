@@ -10,7 +10,9 @@
     {id: 2, string: 'Estudar', finished: false}
   ])
   const filteredTodos = computed(() =>{
-    const filtered = todos.value.filter((todo) => todo.finished)
+    const filtered = todos.value.filter((todo) => {
+      return filter.value === 'All' ? true : filter.value === 'Open' ? !todo.finished : todo.finished
+    })
     return filtered
   })
   const filter = ref('All')
@@ -34,7 +36,7 @@
   </form>
   <Filter @change-filter="changeFilter"/>
   <ul>
-    <li v-for="todo in todos" :key="todo.id">
+    <li v-for="todo in filteredTodos" :key="todo.id">
       <Todo :todo="todo"/>
     </li>
   </ul>
