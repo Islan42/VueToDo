@@ -1,15 +1,11 @@
 <script setup>
   import { ref, watch } from 'vue'
-  
-  const checked = ref(null)
-  //const props = defineProps(['filter'])
+    
   const emit = defineEmits(['change-filter'])
+  const checked = ref(null)
   watch(checked, (newChecked) => {
-    emit('change-filter')
+    emit('change-filter', newChecked)
   })
-  /*const labels = [
-    {id: 'All', isChecked:}
-  ]*/
 </script>
 
 <template>

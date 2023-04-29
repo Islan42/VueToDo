@@ -14,13 +14,16 @@
     return filtered
   })
   const filter = ref('All')
-  
   const newTodo = ref('')
+  
   function insertNewTodo() {
     const id = todos.value.length
     todos.value.push({id, string: newTodo.value, finished: false})
     newTodo.value = ''
     input.value.focus()
+  }
+  function changeFilter(newFilter) {
+    filter.value = newFilter
   }
 </script>
 
@@ -29,7 +32,7 @@
     <input v-model="newTodo" placeholder="A fazer" ref="input">
     <input type="submit" value="Inserir">
   </form>
-  <Filter :filter="filter"/>
+  <Filter @change-filter="changeFilter"/>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
       <Todo :todo="todo"/>
