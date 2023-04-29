@@ -10,9 +10,22 @@
     {id: 2, string: 'Estudar', finished: false}
   ])
   const filteredTodos = computed(() =>{
-    const filtered = todos.value.filter((todo) => {
-      return filter.value === 'All' ? true : filter.value === 'Open' ? !todo.finished : todo.finished
-    })
+    let filtered
+    switch(true) {
+      case filter.value === 'Open': {
+        filtered = todos.value.filter((todo) => !todo.finished)
+        break
+      }
+      case filter.value === 'Finished': {
+        filtered = todos.value.filter((todo) => todo.finished)
+        break
+      }
+      default: {
+        const finished = todos.value.filter((todo) => todo.finished)
+        const opened = todos.value.filter((todo) => !todo.finished)
+        filtered = [...opened, ...finished]
+      }
+    }
     return filtered
   })
   const filter = ref('All')
